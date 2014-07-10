@@ -123,20 +123,23 @@ public void ping()
     if( usingPing1 )
     {
       pings = loadStrings(clusterPing1);
-  
-      for (int node = 0 ; node < pings.length; node++)
+      
+      if( pings != null )
       {
-        String[] elements = splitTokens(pings[node]);
-  
-        if (elements[1].equals("DOWN") == true )
+        for (int node = 0 ; node < pings.length; node++)
         {
-          badNode = elements[0];
-          nodePing[node-1] = false;
-        }
-        else if ( elements[1].equals("UP") == true )
-        {
-          if ( node > 0 )
-            nodePing[node-1] = true;
+          String[] elements = splitTokens(pings[node]);
+    
+          if (elements[1].equals("DOWN") == true )
+          {
+            badNode = elements[0];
+            nodePing[node-1] = false;
+          }
+          else if ( elements[1].equals("UP") == true )
+          {
+            if ( node > 0 )
+              nodePing[node-1] = true;
+          }
         }
       }
     }
@@ -144,20 +147,23 @@ public void ping()
     if( usingPing2 )
     {
       pings = loadStrings(clusterPing2);
-  
-      for (int node = 0 ; node < pings.length; node++)
+      
+      if( pings != null )
       {
-        String[] elements = splitTokens(pings[node]);
-  
-        if (elements[1].equals("DOWN") == true )
+        for (int node = 0 ; node < pings.length; node++)
         {
-          badNode = elements[0];
-          nodeCavewavePing[node-1] = false;
-        }
-        else if ( elements[1].equals("UP") == true )
-        {
-          if ( node > 0 )
-            nodeCavewavePing[node-1] = true;
+          String[] elements = splitTokens(pings[node]);
+    
+          if (elements[1].equals("DOWN") == true )
+          {
+            badNode = elements[0];
+            nodeCavewavePing[node-1] = false;
+          }
+          else if ( elements[1].equals("UP") == true )
+          {
+            if ( node > 0 )
+              nodeCavewavePing[node-1] = true;
+          }
         }
       }
     }
