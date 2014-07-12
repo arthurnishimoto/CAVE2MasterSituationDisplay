@@ -227,6 +227,7 @@ class NodeDisplay
     update();
     
     textAlign(RIGHT);
+    textFont( st_font, 16 );
     fill(cpuBaseColor);
     text(String.format("%.2f", avgCPU * 100), 20 + nodeWidth + 180, -24 );
     fill(gpuBaseColor);
@@ -454,6 +455,8 @@ class NodeDisplay
     translate( 108, 0 );
     
     textAlign(RIGHT);
+    textFont( st_font, 16 );
+    
     fill(cpuBaseColor);
     text(String.format("%.2f", avgCPU * 100), 20 - nodeWidth + 180, -24 );
     fill(gpuBaseColor);

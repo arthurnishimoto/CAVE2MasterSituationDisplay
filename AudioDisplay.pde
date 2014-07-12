@@ -54,11 +54,18 @@ class Sound
 }// class Sound
 
 /* incoming osc message are forwarded to the oscEvent method. */
+String lastOSCMessage = "";
 void oscEvent(OscMessage theOscMessage) {
   /* print the address pattern and the typetag of the received OscMessage */
-  print("### received an osc message.");
-  print(" addrpattern: "+theOscMessage.addrPattern());
-  println(" typetag: "+theOscMessage.typetag());
+  //print("### received an osc message.");
+  //print(" addrpattern: "+theOscMessage.addrPattern());
+  //println(" typetag: "+theOscMessage.typetag());
+  lastOSCMessage = theOscMessage.toString() + "\n Arguments: ";
+  
+  for( int i = 0; i < theOscMessage.arguments().length; i++ )
+  {
+    lastOSCMessage += "'"+theOscMessage.arguments()[i] + "' ";
+  }
   
   // newMonoSound nodeID, bufNum, amp, xPos, zPos
   // newStereoSound nodeID, bufNum, amp
@@ -86,6 +93,58 @@ void oscEvent(OscMessage theOscMessage) {
       playingStereo = true;
       return;
     }
+  }
+  
+  if( theOscMessage.checkAddrPattern("bootCluster") ) {
+    /* check if the typetag is the right one. */
+    if( theOscMessage.checkTypetag("iii") ) {
+      onBootCluster( theOscMessage.get(0).intValue(), theOscMessage.get(1).intValue(), theOscMessage.get(2).intValue() );
+      return;
+    }
+  }
+  
+  if( theOscMessage.checkAddrPattern("audioReceiver") ) {
+    /* check if the typetag is the right one. */
+    if( theOscMessage.checkTypetag("i") ) {
+      audioReceiverMode =  theOscMessage.get(0).intValue();
+      return;
+    }
+  }
+  
+  if( theOscMessage.checkAddrPattern("soundServerStarted") ) {
+    stereoEnabled = 0;
+    surroundEnabled = 0;
+    audioMuted = 0;
+  }
+  
+  if( theOscMessage.checkAddrPattern("audioMuted") ) {
+    if( theOscMessage.checkTypetag("i") ) {
+      audioMuted =  theOscMessage.get(0).intValue();
+      return;
+    }
+  }
+  
+  if( theOscMessage.checkAddrPattern("serverVol") ) {
+    if( theOscMessage.checkTypetag("i") ) {
+      serverVol =  theOscMessage.get(0).intValue();
+      return;
+    }
+  }
+  
+  if( theOscMessage.checkAddrPattern("audioStereoEnabled") ) {
+    stereoEnabled = 1;
+  }
+  if( theOscMessage.checkAddrPattern("audioSurroundEnabled") ) {
+    surroundEnabled = 1;
+  }
+  
+  if( theOscMessage.checkAddrPattern("oscDebugWindowEnabled") ) {
+    enablePopUpWindow = true;
+    messageType = -1;
+  }
+  if( theOscMessage.checkAddrPattern("oscDebugWindowDisabled") ) {
+    enablePopUpWindow = false;
+    messageType = -1;
   }
 }
 

@@ -251,7 +251,7 @@ void setup() {
   omicronManager.calculateScreenTransformation(targetWidth, targetHeight);
   omicronManager.enableScreenScale(scaleScreen);
   
-  st_font = loadFont("TMP-Monitors-48.vlw");
+  st_font = loadFont("TMP-Monitors-128.vlw");
   space_font = loadFont("SpaceAge-48.vlw");
   
   circleImg = loadImage("circle.png");
@@ -354,6 +354,7 @@ void draw() {
       drawTrackerStatus();
       if( !connectToTracker )
       {
+        textFont( st_font, 16 );
         fill(250,250,0);
         text("DEMO MODE - NOT CONNECTED TO TRACKER", 216, 16);
       }
@@ -381,12 +382,14 @@ void draw() {
       }
       else
       {
+        textFont( st_font, 16 );
         fill(250,250,0);
         text("DEMO MODE - NOT CONNECTED TO CLUSTER", 216, 16);
       }
       
       if( connectToClusterData && !connectedToClusterData )
       {
+        textFont( st_font, 16 );
         fill(0);
         rect(0,0,width,borderWidth);
         
@@ -474,10 +477,12 @@ void draw() {
   textAlign(LEFT);
   textFont( st_font, 16 );
   
+  drawPopUpWindow();
+  
   // For event and fullscreen processing, this must be called in draw()
   omicronManager.process();
   lastFrameTime = programTimer;
-
+  
   if ( scaleScreen )
   {
     omicronManager.popScreenScale();
@@ -627,6 +632,12 @@ void keyPressed()
   if ( key == '3' )
   {
     state = AUDIO;
+  }
+  
+  if ( key == 'd' )
+  {
+    enablePopUpWindow = !enablePopUpWindow;
+    messageType = -1;
   }
   
   if ( key == ' ' )

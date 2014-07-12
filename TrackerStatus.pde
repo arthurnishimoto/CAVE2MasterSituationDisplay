@@ -19,6 +19,7 @@ float trackerPulseTimer;
 
 void drawTrackerStatus()
 {
+  textFont( st_font, 16 );
   pushMatrix();
   systemText = "TRACKING SYSTEM";
   

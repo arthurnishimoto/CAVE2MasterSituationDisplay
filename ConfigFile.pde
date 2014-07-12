@@ -31,6 +31,11 @@ void readConfigFile(String config_file) {
           rawConfig[i] = rawConfig[i].substring( 0, rawConfig[i].indexOf("//") );
       }
       
+      if ( rawConfig[i].contains("#") ) // Removes comments
+      {
+          rawConfig[i] = rawConfig[i].substring( 0, rawConfig[i].indexOf("#") );
+      }
+      
       if ( rawConfig[i].length() == 0 ) // Ignore blank lines
         continue;
       
