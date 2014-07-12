@@ -116,6 +116,14 @@ void oscEvent(OscMessage theOscMessage) {
   }
   
   if( theOscMessage.checkAddrPattern("soundServerStarted") ) {
+    soundServerRunning = 1;
+    stereoEnabled = 0;
+    surroundEnabled = 0;
+    audioMuted = 0;
+  }
+  
+  if( theOscMessage.checkAddrPattern("soundServerStopped") ) {
+    soundServerRunning = 0;
     stereoEnabled = 0;
     surroundEnabled = 0;
     audioMuted = 0;

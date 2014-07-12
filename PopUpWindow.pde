@@ -12,6 +12,8 @@ int audioMuted = -1;
 int serverVol = -10000;
 int mountPointsFixed = 0;
 
+int soundServerRunning = -1;
+
 void onBootCluster( int os, int minute, int second )
 {
   enablePopUpWindow = true;
@@ -45,15 +47,25 @@ void drawPopUpWindow()
       text("CLUSTER BOOTING TO WINDOWS", 50, 50 + 32);
       
       textFont( st_font, 32 );
-      if( audioReceiverMode == 1 && surroundEnabled == 1 )
+      if( soundServerRunning == -1 )
+      {
+        fill(210,210,20);
+        text("AUDIO SERVER - STATUS UNKNOWN", 50, 50 + 32 + 64 * 8);
+      }
+      else if( soundServerRunning == 0 )
+      {
+        fill(210,110,20);
+        text("AUDIO SERVER - OFFLINE", 50, 50 + 32 + 64 * 8);
+      }
+      else if( audioReceiverMode == 1 && surroundEnabled == 1 )
       {
         fill(10,210,10);
-        text("AUDIO STATUS - READY", 50, 50 + 32 + 64 * 8);
+        text("AUDIO SERVER - READY", 50, 50 + 32 + 64 * 8);
       }
       else
       {
         fill(210,210,20);
-        text("AUDIO STATUS - NOT CONFIGURED", 50, 50 + 32 + 64 * 8);
+        text("AUDIO SERVER - NOT CONFIGURED", 50, 50 + 32 + 64 * 8);
       }
       
       
@@ -121,15 +133,25 @@ void drawPopUpWindow()
       text("CLUSTER BOOTING TO LINUX", 50, 50 + 32);
       
       textFont( st_font, 32 );
-      if( audioReceiverMode == 0 && stereoEnabled == 1 )
+      if( soundServerRunning == -1 )
+      {
+        fill(210,210,20);
+        text("AUDIO SERVER - STATUS UNKNOWN", 50, 50 + 32 + 64 * 8);
+      }
+      else if( soundServerRunning == 0 )
+      {
+        fill(210,110,20);
+        text("AUDIO SERVER - OFFLINE", 50, 50 + 32 + 64 * 8);
+      }
+      else if( audioReceiverMode == 0 && stereoEnabled == 1 )
       {
         fill(10,210,10);
-        text("AUDIO STATUS - READY", 50, 50 + 32 + 64 * 8);
+        text("AUDIO SERVER - READY", 50, 50 + 32 + 64 * 8);
       }
       else
       {
         fill(210,210,20);
-        text("AUDIO STATUS - NOT CONFIGURED", 50, 50 + 32 + 64 * 8);
+        text("AUDIO SERVER - NOT CONFIGURED", 50, 50 + 32 + 64 * 8);
       }
       
       if( mountPointsFixed == 1 )
@@ -208,6 +230,22 @@ void drawPopUpWindow()
       text("OSC DEBUGGING WINDOW", 50, 50);
       
       text("Last OSC Message Received: " + lastOSCMessage, 50, 50 + 32 + 64 * 1);
+      
+      if( soundServerRunning == -1 )
+      {
+        fill(210,210,20);
+        text("AUDIO SERVER - STATUS UNKNOWN", 50, 50 + 32 + 64 * 8);
+      }
+      else if( soundServerRunning == 0 )
+      {
+        fill(210,110,20);
+        text("AUDIO SERVER - OFFLINE", 50, 50 + 32 + 64 * 8);
+      }
+      else if( soundServerRunning == 1 )
+      {
+        fill(10,210,20);
+        text("AUDIO SERVER - ONLINE", 50, 50 + 32 + 64 * 8);
+      }
       
       fill(200);
       if( audioReceiverMode == 0 )
