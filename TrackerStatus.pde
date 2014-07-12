@@ -31,7 +31,7 @@ void drawTrackerStatus()
   translate( 50, 60 );
   
   fill(0,250,250);
-  text("CAVE2(TM) System Master Situation Display (Version 0.5 - alpha)", 16, 16);
+  text("CAVE2(TM) System Master Situation Display (Version 0.6 - alpha)", 16, 16);
   
   float timeSinceLastTrackerUpdate = programTimer - lastTrackerUpdateTime;
   

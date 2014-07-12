@@ -103,6 +103,10 @@ void oscEvent(OscMessage theOscMessage) {
     }
   }
   
+  if( theOscMessage.checkAddrPattern("fixedMountPoints") ) {
+    mountPointsFixed = 1;
+  }
+  
   if( theOscMessage.checkAddrPattern("audioReceiver") ) {
     /* check if the typetag is the right one. */
     if( theOscMessage.checkTypetag("i") ) {

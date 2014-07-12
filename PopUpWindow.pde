@@ -10,12 +10,16 @@ int stereoEnabled = -1;
 int surroundEnabled = -1;
 int audioMuted = -1;
 int serverVol = -10000;
+int mountPointsFixed = 0;
 
 void onBootCluster( int os, int minute, int second )
 {
   enablePopUpWindow = true;
   messageType = os;
   
+  if( os == 1 )
+    mountPointsFixed = 0;
+    
   estBootTime = millis() + (minute * 60 + second) * 1000;
 }
 
@@ -66,7 +70,7 @@ void drawPopUpWindow()
       else if( audioReceiverMode == 2 )
       {
         fill(210,10,20);
-        text("     RECEIVER SET FOR XBOX", 50, 50 + 32 + 64 * 9);
+        text("     RECEIVER SET FOR AUXILIARY (XBOX)", 50, 50 + 32 + 64 * 9);
       }
       else
       {
@@ -128,6 +132,16 @@ void drawPopUpWindow()
         text("AUDIO STATUS - NOT CONFIGURED", 50, 50 + 32 + 64 * 8);
       }
       
+      if( mountPointsFixed == 1 )
+      {
+        fill(10,210,10);
+        text("LINUX MOUNT POINTS FIXED", 50, 50 + 32 + 64 * 12);
+      }
+      else
+      {
+        fill(210,210,20);
+        text("ACTION NEEDED - FIX MOUNT POINTS", 50, 50 + 32 + 64 * 12);
+      }
       
       if( audioReceiverMode == 0 )
       {
@@ -142,7 +156,7 @@ void drawPopUpWindow()
       else if( audioReceiverMode == 2 )
       {
         fill(210,10,20);
-        text("     RECEIVER SET FOR XBOX", 50, 50 + 32 + 64 * 9);
+        text("     RECEIVER SET FOR AUXILIARY (XBOX)", 50, 50 + 32 + 64 * 9);
       }
       else
       {
@@ -174,9 +188,15 @@ void drawPopUpWindow()
       
         textAlign(CENTER);
         textFont( st_font, 256 );
-        text( (estBootTime - millis()) / 1000, popupWindowSize.x/2, popupWindowSize.y/2);
+        int timeInSec = (estBootTime - millis()) / 1000;
+        int timeInMin = timeInSec / 60;
+        int timeInMinSec = timeInSec - (timeInMin*60);
+        if( timeInMinSec < 10 )
+          text( timeInMin + ":0" + timeInMinSec, popupWindowSize.x/2, popupWindowSize.y/2);
+        else
+          text( timeInMin + ":" + timeInMinSec, popupWindowSize.x/2, popupWindowSize.y/2);
       }
-      else if( estBootTime - millis() < -2000 && audioReceiverMode == 1 && surroundEnabled == 1)
+      else if( estBootTime - millis() < -2000 && audioReceiverMode == 0 && stereoEnabled == 1 && mountPointsFixed == 1 )
       {
         enablePopUpWindow = false;
       }
@@ -200,7 +220,7 @@ void drawPopUpWindow()
       }
       else if( audioReceiverMode == 2 )
       {
-        text("     RECEIVER SET FOR XBOX", 50, 50 + 32 + 64 * 9);
+        text("     RECEIVER SET FOR AUXILIARY (XBOX)", 50, 50 + 32 + 64 * 9);
       }
       else
       {

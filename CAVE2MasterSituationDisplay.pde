@@ -8,7 +8,7 @@
  * Author: Arthur Nishimoto
  * Copyright (C) 2012-2014
  * Electronic Visualization Laboratory, University of Illinois at Chicago
- * Version: 0.5 (alpha)
+ * Version: 0.6 (alpha)
  *
  * Version Notes:
  * 11/6/12      - Initial version
