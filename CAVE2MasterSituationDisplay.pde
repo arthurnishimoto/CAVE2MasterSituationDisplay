@@ -331,6 +331,36 @@ void setup() {
   }
   
   background(0);
+  
+  Runnable myRunnable = new Runnable(){
+
+     public void run(){
+        while(true)
+        {
+          switch( state )
+          {
+            case(CLUSTER):
+              if( connectToClusterData )
+              {
+                getData();
+                if( clusterUpdateTimer >= clusterUpdateInterval )
+                {
+                  clusterUpdateTimer = 0;
+                }
+                else
+                {
+                  clusterUpdateTimer += deltaTime;
+                }
+              }
+          }
+        }
+     }
+   };
+
+
+   Thread thread = new Thread(myRunnable);
+   thread.start();
+   
 }// setup
 
 float scaleScreenX, scaleScreenY;
@@ -370,15 +400,7 @@ void draw() {
     case(CLUSTER):
       if( connectToClusterData )
       {
-        getData();
-        if( clusterUpdateTimer >= clusterUpdateInterval )
-        {
-          clusterUpdateTimer = 0;
-        }
-        else
-        {
-          clusterUpdateTimer += deltaTime;
-        }
+        
       }
       else
       {

@@ -115,8 +115,8 @@ void getData()
 
 public void ping()
 {
-  //try
-  //{
+  try
+  {
     badNode = "";
 
     // check all the nodes from the first network interface
@@ -129,7 +129,7 @@ public void ping()
         for (int node = 0 ; node < pings.length; node++)
         {
           String[] elements = splitTokens(pings[node]);
-    
+
           if (elements[1].equals("DOWN") == true )
           {
             badNode = elements[0];
@@ -167,10 +167,10 @@ public void ping()
         }
       }
     }
-  //}
-  //catch( Exception e )
-  //{
-  //  e.printStackTrace();
-  //}
+  }
+  catch( Exception e )
+  {
+    e.printStackTrace();
+  }
 }
 
