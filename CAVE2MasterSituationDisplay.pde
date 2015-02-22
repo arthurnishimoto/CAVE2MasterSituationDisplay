@@ -337,21 +337,14 @@ void setup() {
      public void run(){
         while(true)
         {
-          switch( state )
+          getData();
+          if( clusterUpdateTimer >= clusterUpdateInterval )
           {
-            case(CLUSTER):
-              if( connectToClusterData )
-              {
-                getData();
-                if( clusterUpdateTimer >= clusterUpdateInterval )
-                {
-                  clusterUpdateTimer = 0;
-                }
-                else
-                {
-                  clusterUpdateTimer += deltaTime;
-                }
-              }
+            clusterUpdateTimer = 0;
+          }
+          else
+          {
+            clusterUpdateTimer += deltaTime;
           }
         }
      }
@@ -400,7 +393,7 @@ void draw() {
     case(CLUSTER):
       if( connectToClusterData )
       {
-        
+
       }
       else
       {

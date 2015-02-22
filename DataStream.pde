@@ -79,26 +79,47 @@ void getData()
         allElements[node][1] = elements[1];
 
         // uptime may be missing the Days field so we need to handle the special case
-
         if (elements.length == 25) {
           for (int j = 2 ; j < 25; j++) {
             allElements[node][j] = elements[j];
           }
+          
+          // grab the GPU and Network data
+          allGPUs[node] = int(allElements[node][21]);
+          netIn[node]   = int(allElements[node][20]);
+          netOut[node]  = int(allElements[node][21]);
+          memUsed[node]  = int(allElements[node][22]) * 100 / 64;
         }
 
-        if (elements.length < 25) {
-          for (int j = 4 ; j < 25; j++) {
+        if (elements.length == 22 ) {
+          
+          for (int j = 3 ; j < 24; j++) {
             allElements[node][j] = elements[j-2];
           }
           allElements[node][2] = "0";
-          allElements[node][3] = "days";
+          //allElements[node][3] = "days";
+          
+          // grab the GPU and Network data
+          allGPUs[node] = int(allElements[node][20]);
+          netIn[node]   = int(allElements[node][21]);
+          netOut[node]  = int(allElements[node][22]);
+          memUsed[node]  = int(allElements[node][23]) * 100 / 64;
         }   
-
-        // grab the GPU and Network data
-        allGPUs[node] = int(allElements[node][21]);
-        netIn[node]   = int(allElements[node][22]);
-        netOut[node]  = int(allElements[node][23]);
-        memUsed[node]  = int(allElements[node][24]) * 100 / 64;
+        else if (elements.length == 23 ) {
+          
+          for (int j = 3 ; j < 25; j++) {
+            allElements[node][j] = elements[j-2];
+          }
+          allElements[node][2] = "0";
+          //allElements[node][3] = "days";
+          println(allElements[node]);
+          // grab the GPU and Network data
+          allGPUs[node] = int(allElements[node][21]);
+          netIn[node]   = int(allElements[node][22]);
+          netOut[node]  = int(allElements[node][23]);
+          memUsed[node]  = int(allElements[node][24]) * 100 / 64;
+        }   
+        
 
         // grab the CPU core data
         for (int core = 0 ; core < 16; core++) {
