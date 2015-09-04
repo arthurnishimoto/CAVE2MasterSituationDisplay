@@ -112,7 +112,7 @@ void getData()
           }
           allElements[node][2] = "0";
           //allElements[node][3] = "days";
-          println(allElements[node]);
+          //println(allElements[node]);
           // grab the GPU and Network data
           allGPUs[node] = int(allElements[node][21]);
           netIn[node]   = int(allElements[node][22]);

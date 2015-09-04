@@ -428,7 +428,12 @@ void draw() {
     secondStr = "0"+secondStr;
   fill(255);
   if( state != CLUSTER )
-    text(hour()+":"+minuteStr+":"+secondStr, targetWidth - 50, 105);
+  {
+    int hour = hour()%12;
+    if( hour == 0 )
+      hour = 12;
+    text(hour+":"+minuteStr+":"+secondStr, targetWidth - 50, 105);
+  }
   //textAlign(LEFT);
   //textFont( st_font, 16 );
   
