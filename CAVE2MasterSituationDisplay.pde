@@ -332,28 +332,30 @@ void setup() {
   
   background(0);
   
-  Runnable myRunnable = new Runnable(){
-
-     public void run(){
-        while(true)
-        {
-          getData();
-          if( clusterUpdateTimer >= clusterUpdateInterval )
+  if( !demoMode )
+  {
+    Runnable myRunnable = new Runnable(){
+  
+       public void run(){
+          while(true)
           {
-            clusterUpdateTimer = 0;
+            getData();
+            if( clusterUpdateTimer >= clusterUpdateInterval )
+            {
+              clusterUpdateTimer = 0;
+            }
+            else
+            {
+              clusterUpdateTimer += deltaTime;
+            }
           }
-          else
-          {
-            clusterUpdateTimer += deltaTime;
-          }
-        }
-     }
-   };
-
-
-   Thread thread = new Thread(myRunnable);
-   thread.start();
-   
+       }
+     };
+  
+  
+     Thread thread = new Thread(myRunnable);
+     thread.start();
+  }
 }// setup
 
 float scaleScreenX, scaleScreenY;
@@ -391,9 +393,17 @@ void draw() {
       }
       break;
     case(CLUSTER):
-      if( connectToClusterData )
+      if( connectToClusterData && !demoMode )
       {
-
+        if( connectToClusterData && !connectedToClusterData )
+        {
+          textFont( st_font, 16 );
+          fill(0);
+          rect(0,0,width,borderWidth);
+          
+          fill(250,250,0);
+          text("NO DATA RECEIVED - NOT CONNECTED TO CLUSTER - ATTEMPTING RECONNECT IN " + (int)clusterReconnectTimer, 216, 16);
+        }
       }
       else
       {
@@ -401,16 +411,7 @@ void draw() {
         fill(250,250,0);
         text("DEMO MODE - NOT CONNECTED TO CLUSTER", 216, 16);
       }
-      
-      if( connectToClusterData && !connectedToClusterData )
-      {
-        textFont( st_font, 16 );
-        fill(0);
-        rect(0,0,width,borderWidth);
-        
-        fill(250,250,0);
-        text("NO DATA RECEIVED - NOT CONNECTED TO CLUSTER - ATTEMPTING RECONNECT IN " + (int)clusterReconnectTimer, 216, 16);
-      }
+
       drawClusterStatus();
       break;
     case(AUDIO):
@@ -667,4 +668,3 @@ void keyPressed()
   }
   
 }
-
