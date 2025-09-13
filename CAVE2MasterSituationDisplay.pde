@@ -393,9 +393,9 @@ void draw() {
       }
       break;
     case(CLUSTER):
-      if( connectToClusterData && !demoMode )
+      if( connectToClusterData )
       {
-        if( connectToClusterData && !connectedToClusterData )
+        if( !connectedToClusterData )
         {
           textFont( st_font, 16 );
           fill(0);
@@ -410,8 +410,8 @@ void draw() {
         textFont( st_font, 16 );
         fill(250,250,0);
         text("DEMO MODE - NOT CONNECTED TO CLUSTER", 216, 16);
+        
       }
-
       drawClusterStatus();
       break;
     case(AUDIO):

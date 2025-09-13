@@ -60,7 +60,7 @@ void readConfigFile(String config_file) {
         continue;
       }
       
-      if ( rawConfig[i].contains("trackerServerIP") ) {
+      if ( rawConfig[i].contains("trackerServerIP") && !rawConfig[i].contains("//trackerServerIP") ) {
         trackerIP = rawConfig[i].substring( rawConfig[i].indexOf("\"")+1, rawConfig[i].lastIndexOf("\"") );
         connectToTracker = true;
         continue;
@@ -76,7 +76,7 @@ void readConfigFile(String config_file) {
         continue;
       }
 
-      if ( rawConfig[i].contains("clusterData_URL") ) {
+      if ( rawConfig[i].contains("clusterData_URL") && !rawConfig[i].contains("//clusterData_URL") ) {
         println("Reading cluster data from: " + rawConfig[i]);
         clusterData = rawConfig[i].substring( rawConfig[i].indexOf("\"")+1, rawConfig[i].lastIndexOf("\"") );
         connectToClusterData = true;
